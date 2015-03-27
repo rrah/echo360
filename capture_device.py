@@ -29,13 +29,13 @@
 import argparse
 import base64
 import datetime
-import httplib
+import http.client
 import json
 import socket
 import sys
 import time
-import urllib2
-import urlparse
+import urllib.request, urllib.error, urllib.parse
+import urllib.parse
 import xml.etree.ElementTree as ET
 
 class Echo360CaptureDevice(object):
@@ -59,14 +59,14 @@ class Echo360CaptureDevice(object):
         #     headers  - A dict that may contain HTTP response headers
         #     data     - None or response data.
         # allow override in a subclass to support other http libraries (such as Diesel.io)
-        url = urlparse.urlparse(urlparse.urljoin(self.server, path))
+        url = urllib.parse.urlparse(urllib.parse.urljoin(self.server, path))
         if len(url.netloc) == 0:
             return('Invalid URL', 'Missing IP address or domain name.', {}, None)
         try:
             if url.scheme == 'https':
-                conn = httplib.HTTPSConnection(url.hostname, url.port, timeout=self.timeout)
+                conn = http.client.HTTPSConnection(url.hostname, url.port, timeout=self.timeout)
             elif url.scheme == 'http':
-                conn = httplib.HTTPConnection(url.hostname, url.port, timeout=self.timeout)
+                conn = http.client.HTTPConnection(url.hostname, url.port, timeout=self.timeout)
             else:
                 return('Invalid URL', 'The URL scheme must be http or https.', {}, None)
         except Exception as e:
@@ -273,7 +273,7 @@ class Echo360CaptureDevice(object):
             description=test-description' 
             --url https://192.168.61.10:8443/monitoring/vga_display_graphics-channel1-stream0.jpg
         """
-        raise "unimplemented"
+        raise Exception("unimplemented")
 
     def status_get_user_sections(self, dump_xml=None):
         """
@@ -429,7 +429,7 @@ class Echo360CaptureDevice(object):
 
         curl --silent --user $adminlogincreds --insecure -d --url $apiurl"/diagnostics/recovery/4d951a96-9702-4321-abe6-a0f232ae1e36/upload"
         """
-        raise "unimplemented"
+        raise Exception("unimplemented")
 
     def log_list_last_count(self, count, dump_xml=None):
         """
