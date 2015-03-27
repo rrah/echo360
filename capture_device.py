@@ -40,7 +40,7 @@ import xml.etree.ElementTree as ET
 
 class Echo360CaptureDevice(object):
     # This class is a wrapper for the Echo360 Capture device API.
-    def __init__(self, server, username, password, debuglevel=None, timeout=10):
+    def __init__(self, server, username, password, debuglevel=0, timeout=10):
         self.server = server
         self.username = username
         self.password = password
@@ -104,7 +104,7 @@ class Echo360CaptureDevice(object):
             else:
                 method = 'POST'
         if self.username is not None and self.password is not None: 
-            req_headers = { 'Authorization' : 'Basic ' + base64.b64encode(self.username + ':' + self.password) }
+            req_headers = { 'Authorization' : 'Basic ' + base64.b64encode(self.username.encode() + b':' + self.password.encode()).decode("utf-8") }
         else:
             req_headers = {}
         (status, reason, headers, data) = self.request(method, command, req_headers, post_data, self.timeout)
