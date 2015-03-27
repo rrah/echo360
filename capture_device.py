@@ -21,10 +21,13 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 # Copyright 2014 Tony Allan <tony@apms.com.au>
+# Modified 2015 Robert Walker <rw776@york.ac.uk>
 # ----------------------------------------------------------------------------
 # 
 # Can be used as a CLI tool (use --help) or as classes Echo360CaptureDevice(), Echo360CaptureDeviceResponse()
 # the CLI code below shows class usage examples. 
+#
+# Updated to python3 27/03/15
 
 import argparse
 import base64
@@ -34,7 +37,8 @@ import json
 import socket
 import sys
 import time
-import urllib.request, urllib.error, urllib.parse
+import urllib.request
+import urllib.parse
 import xml.etree.ElementTree as ET
 
 class Echo360CaptureDevice(object):
