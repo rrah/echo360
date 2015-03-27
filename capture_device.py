@@ -35,7 +35,6 @@ import socket
 import sys
 import time
 import urllib.request, urllib.error, urllib.parse
-import urllib.parse
 import xml.etree.ElementTree as ET
 
 class Echo360CaptureDevice(object):
