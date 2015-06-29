@@ -35,6 +35,7 @@ import datetime
 import http.client
 import json
 import socket
+import ssl
 import sys
 import time
 import urllib.request
@@ -67,7 +68,7 @@ class Echo360CaptureDevice(object):
             return('Invalid URL', 'Missing IP address or domain name.', {}, None)
         try:
             if url.scheme == 'https':
-                conn = http.client.HTTPSConnection(url.hostname, url.port, timeout=self.timeout)
+                conn = http.client.HTTPSConnection(url.hostname, url.port, timeout=self.timeout, context = ssl._create_unverified_context())
             elif url.scheme == 'http':
                 conn = http.client.HTTPConnection(url.hostname, url.port, timeout=self.timeout)
             else:
